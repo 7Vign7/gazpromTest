@@ -1,0 +1,19 @@
+{
+  "name": "gazpromtest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "start": "concurrently \"npm:backend\" \"npm:frontend\"",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm start"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

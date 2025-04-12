@@ -6,10 +6,7 @@ const api = axios.create({
 });
 
 export default {
-    getGroups() {
-        return api.get('/groups');
-    },
-    getMetrics() {
-        return api.get('/metrics');
+    get(path) {
+        return api.get(path);
     }
 };

@@ -34,3 +34,6 @@ LEFT JOIN
     statuses ns ON n.status = ns.Id
 ORDER BY
     g.id, n.id;
+-- SELECT
+-- *
+-- FROM groups

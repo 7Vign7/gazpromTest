@@ -16,3 +16,6 @@ LEFT JOIN
     statuses s ON n.status = s.Id
 ORDER BY
     m.datetime DESC, n.id;
+-- SELECT
+-- *
+-- FROM metrics

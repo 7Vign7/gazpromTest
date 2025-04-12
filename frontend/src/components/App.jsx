@@ -1,11 +1,18 @@
-// import api from "../api/monitoringApi.js"
-import SimpleChart from "./metrics/test";
-function App() {
+import api from "../api/monitoringApi.js"
+import {useEffect} from "react";
+import {fetchGroups} from "../store/groupsSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 
+function App() {
+  const dispatch = useDispatch();
+  const {status,error,group} = useSelector((state) => state.groups);
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
   return (
-    <div>
-     <SimpleChart/>
-    </div>
+    <>
+      {status === "loading" && <h1>Loading...</h1>}
+    </>
   )
 }
 
