@@ -1,9 +1,11 @@
+
 export function parseCustomDate(dateStr) {
     const [datePart, timePart] = dateStr.split(' ');
     const [day, month, year] = datePart.split('-');
     const [hours, minutes] = timePart.split(':');
     return new Date(year, month - 1, day, hours, minutes);
 }
+
 
 export function statusInterfaceGroup(currentGroup, group, nodes) {
     const statusPriority = [

@@ -51,6 +51,7 @@ const groupsSlice = createSlice({
                 state.status = "rejected";
                 state.error = action.payload;
             })
+
     }
 });
 

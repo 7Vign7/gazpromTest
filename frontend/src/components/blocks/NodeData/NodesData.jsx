@@ -1,33 +1,51 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {calculateNodeStatus} from "../../../utils/Utils"
-
+import MetricsChart from  "../../metrics/test"
 
 const NodesData = () => {
     const { selectedNode } = useSelector((state) => state.nodes);
-    console.log(selectedNode)
+    if(!selectedNode){
+        return (
+            <div>Выберите ноду</div>
+        )
+    }
+    console.log(selectedNode);
+    const none = "Отсутствуют данные"
     return (
         <div>
+            <MetricsChart
+            metricsData={selectedNode.node_metrics}
+            nodeName={selectedNode.node_name}/>
             <div className="metrics-block">
                 <h2>Метрики</h2>
-                {/*<canvas id="metrics-chart" ref={canvasRef}></canvas>*/}
+
             </div>
-
-
             <div className="interface-block">
                 <h2>Интерфейс</h2>
-                {/*<p>Название: {selectedNode.interface_name ? "Null" : "Не выбрано"}</p>*/}
-                {/*<p>Статус: {selectedNode ? calculateNodeStatus(selectedNodeMetrics) : "N/A"}</p>*/}
+                {selectedNode.interface_name?
+                    <p>Название: {selectedNode.interface_name}</p>
+                    :null
+                }
+                <p>{calculateNodeStatus(selectedNode.node_metrics)}</p>
             </div>
-
             <div className="admin-block">
                 <h2>Администратор</h2>
-                {/*<p>Данные администратора: {selectedNode.admin_name ? "TBD" : "Не выбрано"}</p>*/}
+                {selectedNode.admin_name?
+                    <p>Имя: {selectedNode.admin_name}</p>
+                    :null
+                }
+                {selectedNode.admin_email?
+                    <p>Почта: {selectedNode.admin_email}</p>
+                    :null
+                }
             </div>
-
             <div className="apps-block">
                 <h2>Приложения</h2>
-                {/*<p>Данные приложений: {selectedNode.application_name ? "TBD" : "Не выбрано"}</p>*/}
+                {selectedNode.application_name?
+                    <p>{selectedNode.application_name}</p>
+                    :null
+                }
             </div>
         </div>
     );
