@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {fetchMetrics} from "./metricsSlice.js";
-import api from "../api/monitoringApi.js";
+import {setSelectedGroup} from "./groupsSlice.js";
+import api from "../../api/monitoringApi.js";
 
 export const fetchNodes = createAsyncThunk(
     'nodes/fetchNodes',
@@ -28,7 +29,7 @@ const nodesSlice = createSlice({
         nodes: [],
         selectedNode: null,
         status: null,
-        error: null
+        error: null,
     },
     reducers: {
         setSelectedNode(state, action) {
@@ -41,7 +42,6 @@ const nodesSlice = createSlice({
                 state.status = "loading";
                 state.error = null;
             })
-
             .addCase(fetchNodes.fulfilled, (state, action) => {
                 state.status = "resolved";
                 const {nodes, metrics} = action.payload;
@@ -51,11 +51,10 @@ const nodesSlice = createSlice({
                 })
                 state.nodes = nodesData;
             })
-
             .addCase(fetchNodes.rejected, (state, action) => {
                 state.status = "rejected";
                 state.error = action.payload;
-            });
+            })
     }
 });
 

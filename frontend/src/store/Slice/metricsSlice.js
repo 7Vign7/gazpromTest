@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import api from "../api/monitoringApi.js";
-import {parseCustomDate} from "../utils/Utils.js";
+import api from "../../api/monitoringApi.js";
+import {parseCustomDate} from "../../utils/Utils.js";
 
 export const fetchMetrics = createAsyncThunk(
     'metrics/fetchMetrics',

@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
-import groupsSlice from "./groupsSlice";
-import nodesSlice from "./nodesSlice";
-import metricsSlice from "./metricsSlice";
+import groupsSlice from "./Slice/groupsSlice.js";
+import nodesSlice from "./Slice/nodesSlice.js";
+import metricsSlice from "./Slice/metricsSlice.js";
 
 const store = configureStore({
     reducer:{

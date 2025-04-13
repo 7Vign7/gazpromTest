@@ -1,23 +1,21 @@
 import React from 'react';
-import {setSelectedNode} from "../../../store/nodesSlice.js";
+import {setSelectedNode} from "../../../store/Slice/nodesSlice.js";
 import {useSelector, useDispatch} from "react-redux";
 import {calculateNodeStatus} from "../../../utils/Utils"
+import {selectFilteredNodes} from "../../../store/selector/selectors.js";
 
 
 const Nodes = () => {
     const dispatch = useDispatch();
     const {groups, selectedGroup } = useSelector((state) => state.groups);
     const {  nodes, selectedNode } = useSelector((state) => state.nodes);
-    const filteredNodes = selectedGroup
-        ? groups[selectedGroup] || []
-        : Object.values(groups).flat();
+    const filteredNodes = useSelector(selectFilteredNodes);
 
     return (
         <div>
             <h2>Ноды</h2>
             {filteredNodes.map((node) => {
                 const latestMetric = node.node_metrics[node.node_metrics.length - 1] || {};
-                console.log(latestMetric);
                 return (
                     <div
                         key={node.node_id}

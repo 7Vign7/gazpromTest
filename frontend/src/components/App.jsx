@@ -1,6 +1,6 @@
 import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGroups } from "../store/groupsSlice";
+import { fetchGroups } from "../store/Slice/groupsSlice.js";
 import "../styles/App.scss";
 import StatusBlock from "./blocks/Status/StatusBlock.jsx";
 import Groups from "./blocks/Groups/Groups.jsx";
@@ -32,7 +32,7 @@ function App() {
                   <Groups/>
                 </div>
                 <Nodes/>
-                {/*<NodesData/>*/}
+                <NodesData/>
               </div>
             </>
         )}

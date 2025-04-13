@@ -50,7 +50,7 @@ const groupsSlice = createSlice({
             .addCase(fetchGroups.rejected, (state, action) => {
                 state.status = "rejected";
                 state.error = action.payload;
-            });
+            })
     }
 });
 
