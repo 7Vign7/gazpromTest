@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import api from "../api/monitoringApi.js";
 
-
 export const fetchGroups = createAsyncThunk(
     'groups/fetchGroups',
     async function(_,{rejectWithValue}) {
@@ -21,7 +20,7 @@ export const fetchGroups = createAsyncThunk(
 const groupsSlice = createSlice({
     name: "groups",
     initialState: {
-        group: [],
+        groups: {},
         selectedId: null,
         status: null,
         error: null
@@ -39,10 +38,15 @@ const groupsSlice = createSlice({
                 state.status = "resolved";
                 const groupData = {};
                 action.payload.forEach((e)=>{
-                    console.log(e)
+                    const {group_name, ...node} = e
+                    if(!groupData[group_name]){
+                        groupData[group_name] = [node]
+                    }else{
+                        groupData[group_name].push(node)
+                    }
                 })
-                console.log(state.group)
-
+                state.groups = groupData
+                console.log(state.groups)
             })
             .addCase(fetchGroups.rejected, (state, action) => {
                 state.status = "rejected";
