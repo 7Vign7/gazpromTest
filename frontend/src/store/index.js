@@ -1,11 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
 import groupsSlice from "./groupsSlice";
-// import nodesReducer from "./nodesSlice";
-// import metricsReducer from "./metricsSlice";
+import nodesSlice from "./nodesSlice";
+import metricsSlice from "./metricsSlice";
 
 const store = configureStore({
     reducer:{
-        groups: groupsSlice
+        groups: groupsSlice,
+        nodes: nodesSlice,
+        metrics: metricsSlice,
     }
 });
 export default store;

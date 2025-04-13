@@ -1,15 +1,13 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import api from "../api/monitoringApi.js";
+import {fetchNodes} from "./nodesSlice.js";
 
 export const fetchGroups = createAsyncThunk(
     'groups/fetchGroups',
-    async function(_,{rejectWithValue}) {
+    async function(_,{rejectWithValue,dispatch,getState}) {
         try{
-            const response = await api.get('/groups');
-            if(response.statusText !== "OK") {
-                throw new Error("Server Error!");
-            }
-            return response.data;
+            await dispatch(fetchNodes()).unwrap();
+            const { nodes } = getState();
+            return nodes.nodes;
         }catch(err){
             return rejectWithValue(err.message);
         }
@@ -21,12 +19,14 @@ const groupsSlice = createSlice({
     name: "groups",
     initialState: {
         groups: {},
-        selectedId: null,
+        selectedGroup: null,
         status: null,
         error: null
     },
     reducers: {
-
+        setSelectedGroup(state, action) {
+            state.selectedGroup = action.payload;
+        },
     },
     extraReducers:(builder) => {
         builder
@@ -46,7 +46,6 @@ const groupsSlice = createSlice({
                     }
                 })
                 state.groups = groupData
-                console.log(state.groups)
             })
             .addCase(fetchGroups.rejected, (state, action) => {
                 state.status = "rejected";
@@ -56,4 +55,5 @@ const groupsSlice = createSlice({
 });
 
 export default groupsSlice.reducer;
-export const { selectGroup } = groupsSlice.actions;
+export const { selectGroup, setSelectedGroup } = groupsSlice.actions;
+// export const { selectGroup } = groupsSlice.actions;
