@@ -14,26 +14,24 @@ function App() {
   useEffect(() => {
     const fetchData = () => dispatch(fetchGroups());
     fetchData();
-    const intervalId = setInterval(fetchData, 60000);
-    return () => clearInterval(intervalId);
+    // const intervalId = setInterval(fetchData, 60000);
+    // return () => clearInterval(intervalId);
   }, [dispatch]);
 
 
 
   return (
-      <div className="app-container">
+      <div className="appContainer">
         {status === "loading" && <h1>Loading...</h1>}
         {status === "rejected" && <h1>Error: {error}</h1>}
         {status === "resolved" && (
             <>
-              <div className="columns">
-                <div>
+                <div className="statusAndGroups">
                   <StatusBlock />
                   <Groups/>
                 </div>
                 <Nodes/>
                 <NodesData/>
-              </div>
             </>
         )}
       </div>

@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import api from "../../api/monitoringApi.js";
 import {parseCustomDate} from "../../utils/Utils.js";
+import {setSelectedNode} from "./nodesSlice.js";
 
 export const fetchMetrics = createAsyncThunk(
     'metrics/fetchMetrics',
@@ -24,7 +25,6 @@ const metricsSlice = createSlice({
     name: "metrics",
     initialState: {
         metrics: {},
-        selectedId: null,
         status: null,
         error: null
     },
@@ -37,7 +37,6 @@ const metricsSlice = createSlice({
                 state.status = "loading";
                 state.error = null;
             })
-
             .addCase(fetchMetrics.fulfilled, (state, action) => {
                 state.status = "resolved";
                 const nodesMetrics = {};
@@ -57,11 +56,10 @@ const metricsSlice = createSlice({
                 });
                 state.metrics = nodesMetrics;
             })
-
             .addCase(fetchMetrics.rejected, (state, action) => {
                 state.status = "rejected";
                 state.error = action.payload;
-            });
+            })
     }
 });
 

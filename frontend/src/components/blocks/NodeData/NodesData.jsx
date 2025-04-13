@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {calculateNodeStatus} from "../../../utils/Utils"
-import MetricsChart from  "../../metrics/test"
+import MetricsChart from "../../metrics/MetricsChart.jsx";
 
 const NodesData = () => {
     const { selectedNode } = useSelector((state) => state.nodes);
@@ -11,25 +11,24 @@ const NodesData = () => {
         )
     }
     console.log(selectedNode);
-    const none = "Отсутствуют данные"
     return (
-        <div>
-            <MetricsChart
-            metricsData={selectedNode.node_metrics}
-            nodeName={selectedNode.node_name}/>
-            <div className="metrics-block">
+        <div className="blocks">
+            <div>
                 <h2>Метрики</h2>
-
+                <MetricsChart/>
             </div>
-            <div className="interface-block">
+            <div>
                 <h2>Интерфейс</h2>
                 {selectedNode.interface_name?
                     <p>Название: {selectedNode.interface_name}</p>
                     :null
                 }
-                <p>{calculateNodeStatus(selectedNode.node_metrics)}</p>
+                {selectedNode.interface_status_description?
+                    <p>Название: {selectedNode.interface_status_description}</p>
+                    :null
+                }
             </div>
-            <div className="admin-block">
+            <div>
                 <h2>Администратор</h2>
                 {selectedNode.admin_name?
                     <p>Имя: {selectedNode.admin_name}</p>
@@ -40,7 +39,7 @@ const NodesData = () => {
                     :null
                 }
             </div>
-            <div className="apps-block">
+            <div>
                 <h2>Приложения</h2>
                 {selectedNode.application_name?
                     <p>{selectedNode.application_name}</p>

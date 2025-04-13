@@ -6,9 +6,10 @@ export const selectFilteredNodes = (state) => {
         ? groups[selectedGroup]
         : nodes;
 };
-// export const selectedNodeMetrics = (state) =>{
-//     const { selectedNode } = state.nodes;
-//     return
-//     // selectedNode ? filteredNodes.find((node) => node.node_id === selectedNode)?.node_metrics || []
-//     //     : [];
-// }
+export const selectedNodeMetrics = (state) =>{
+    const { selectedNode } = state.nodes;
+    if(selectedNode){
+        return selectedNode.node_metrics
+    }
+    return null
+}

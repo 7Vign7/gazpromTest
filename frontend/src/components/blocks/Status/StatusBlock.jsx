@@ -5,8 +5,9 @@ import Status from "./Status.jsx";
 
 const StatusBlock = () => {
     return (
-        <div>
+        <div className="blocks statusAndGroupsBlocs">
             <Status/>
+            <hr/>
             <GeneralInfo/>
         </div>
     )
