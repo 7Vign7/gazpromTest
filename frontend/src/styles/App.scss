@@ -1,48 +1,84 @@
-*{
-  font-family: "Inter", sans-serif;
-  font-size: 32px;
-  outline-color: #EBEBEC ;
-}
-.circle{
-  width: 25px;
-  height: 25px;
-  border-radius: 100%;
-}
-hr{
-  color: #EBEBEC;
-  border-width: 2px;
-  margin-top: 25px;
-}
-p{
-  margin: 0;
-  height: 50px;
+$font-family: "Inter", sans-serif;
+$primary-color: #EBEBEC;
+$border-radius: 20px;
+$font-size-base: 32px;
+$font-size-large: 40px;
+$spacing-small: 10px;
+$spacing-medium: 15px;
+$spacing-large: 25px;
+$spacing-xlarge: 30px;
+$spacing-xxlarge: 40px;
+$circle-size: 25px;
+$node-block-width: 520px;
+$node-block-height: 200px;
+$blocks-width: 600px;
+$coloums-height: 980px;
+
+@mixin flex-center {
   display: flex;
   align-items: center;
 }
-.groupItem{
-  padding: 10px 15px;
+
+@mixin outline-style {
+  outline: solid 2px $primary-color;
+}
+
+@mixin block-padding {
+  padding: $spacing-medium $spacing-xxlarge 0;
   box-sizing: border-box;
 }
-.selected{
-  outline: solid #EBEBEC;
-  border-radius: 20px;
-  outline-width: unset;
-  transition: all .2s;
+
+* {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  outline-color: $primary-color;
 }
-h2{
-  font-size: 40px;
+
+body {
+  margin: 0;
+}
+
+div {
+  border-radius: $border-radius;
+}
+
+h2 {
+  font-size: $font-size-large;
   height: 70px;
   margin: 0;
   text-align: center;
-  display: flex;
-  align-items: center;
+  @include flex-center;
 }
-body{
-  margin:0;
+
+p {
+  margin: 0;
+  height: 50px;
+  @include flex-center;
 }
-div{
-  border-radius: 20px;
+
+hr {
+  color: $primary-color;
+  border-width: 2px;
+  margin-top: $spacing-large;
 }
+.circle {
+  width: $circle-size;
+  height: $circle-size;
+  border-radius: 100%;
+}
+
+.groupItem {
+  padding: $spacing-small $spacing-medium;
+  box-sizing: border-box;
+
+  &.selected {
+    outline: solid $primary-color;
+    border-radius: $border-radius;
+    outline-width: unset;
+    transition: all 0.2s;
+  }
+}
+
 .appContainer {
   display: flex;
   padding: 32px 20px 18px 20px;
@@ -51,48 +87,55 @@ div{
   width: 1920px;
   box-sizing: border-box;
 }
-.blocks{
-  box-sizing: border-box;
-  width: 600px;
-  height: 1030px;
-  padding: 15px 40px 0;
-  outline: solid 2px #EBEBEC;
-  overflow-y: scroll;
+
+.blocks {
+  @include block-padding;
+  @include outline-style;
+  width: $blocks-width;
+  height: $coloums-height;
 }
-.statusAndGroups{
+
+.statusAndGroups {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: $coloums-height;
+  &Blocs {
+    height: 470px;
+  }
 }
-.statusAndGroupsBlocs{
-  height: 500px;
-}
-.statusColorBlock{
+
+.statusColorBlock {
   color: white;
   text-align: center;
-  padding: 30px 0;
+  padding: $spacing-xlarge 0;
 }
-.nodesBlocks{
+
+.nodesBlocks {
   overflow-y: scroll;
-  width: 530px;
-  height: 100%;
+  overflow-x: hidden;
 }
-.nodeBlock{
-  width: 520px;
-  height: 200px;
-  outline: solid 2px #EBEBEC;
-  padding: 15px 25px 0;
+
+.nodeBlock {
+  @include outline-style;
+  width: $node-block-width;
+  height: $node-block-height;
+  padding: $spacing-medium $spacing-large 0;
   box-sizing: border-box;
-  margin-bottom: 25px;
-}
-.nodTitle{
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.nodeMetrick{
-  display: flex;
-  justify-content: space-around;
-}
+  margin-bottom: $spacing-large;
 
+  .nodTitle {
+    @include flex-center;
+    justify-content: space-around;
+  }
 
+  .nodeMetrick {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .interfaceData {
+    display: flex;
+    justify-content: space-between;
+  }
+}

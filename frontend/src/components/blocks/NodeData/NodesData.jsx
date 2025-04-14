@@ -1,33 +1,45 @@
 import React from 'react';
 import {useSelector} from "react-redux";
-import {calculateNodeStatus} from "../../../utils/Utils"
+import {setColorStatus} from "../../../utils/Utils"
 import MetricsChart from "../../metrics/MetricsChart.jsx";
 
 const NodesData = () => {
     const { selectedNode } = useSelector((state) => state.nodes);
     if(!selectedNode){
         return (
-            <div>Выберите ноду</div>
+            <div className="blocks"><h2>Выберите ноду</h2></div>
         )
     }
-    console.log(selectedNode);
+
     return (
         <div className="blocks">
             <div>
                 <h2>Метрики</h2>
                 <MetricsChart/>
             </div>
-            <div>
-                <h2>Интерфейс</h2>
-                {selectedNode.interface_name?
-                    <p>Название: {selectedNode.interface_name}</p>
+            <hr/>
+            {
+                selectedNode.interface_name || selectedNode.interface_status_description?
+                    <>
+                        <div>
+                            <h2>Интерфейс</h2>
+                            <div className="interfaceData">
+                                {selectedNode.interface_name?
+                                    <p>Название: {selectedNode.interface_name}</p>
+                                    :null
+                                }
+                                {selectedNode.interface_status_description?
+                                    <p style={{color:`${setColorStatus(selectedNode.interface_status_description)}`}}>
+                                        {selectedNode.interface_status_description}
+                                    </p>
+                                    :null
+                                }
+                            </div>
+                        </div>
+                        <hr/>
+                    </>
                     :null
-                }
-                {selectedNode.interface_status_description?
-                    <p>Название: {selectedNode.interface_status_description}</p>
-                    :null
-                }
-            </div>
+            }
             <div>
                 <h2>Администратор</h2>
                 {selectedNode.admin_name?
@@ -39,6 +51,7 @@ const NodesData = () => {
                     :null
                 }
             </div>
+            <hr/>
             <div>
                 <h2>Приложения</h2>
                 {selectedNode.application_name?

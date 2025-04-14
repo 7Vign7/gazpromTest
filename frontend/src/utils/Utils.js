@@ -1,3 +1,12 @@
+export function percentColor(val){
+    if (val >= 95){
+        return 'red'
+    }else if(val >= 85){
+        return 'yellow'
+    }
+    return null
+}
+
 
 export function parseCustomDate(dateStr) {
     const [datePart, timePart] = dateStr.split(' ');
@@ -5,7 +14,16 @@ export function parseCustomDate(dateStr) {
     const [hours, minutes] = timePart.split(':');
     return new Date(year, month - 1, day, hours, minutes);
 }
-
+export function setColorStatus(status){
+    const colorStatus = {
+        SHUTDOWN:'grey',
+        DOWN:'darkred',
+        CRITICAL:'red',
+        WARNING:'yellow',
+        UP:'lightgreen'
+    }
+    return colorStatus[status]
+}
 
 export function statusInterfaceGroup(currentGroup, group, nodes) {
     const statusPriority = [
@@ -16,7 +34,6 @@ export function statusInterfaceGroup(currentGroup, group, nodes) {
         'UP',
     ];
     let worstStatus = 'UP';
-
     if (!currentGroup) {
         nodes.forEach((node) => {
             const nodeStatus = node.node_status_description;
